@@ -15,7 +15,6 @@ const App = () => {
       const tasksFromServer = await fetchTasks()
       setTasks(tasksFromServer)
     }
-
     getTasks()
   }, [])
 
@@ -23,7 +22,6 @@ const App = () => {
   const fetchTasks = async () => {
     const res = await fetch('http://localhost:5000/tasks')
     const data = await res.json()
-
     return data
   }
 
@@ -31,7 +29,6 @@ const App = () => {
   const fetchTask = async (id) => {
     const res = await fetch(`http://localhost:5000/tasks/${id}`)
     const data = await res.json()
-
     return data
   }
 
@@ -39,19 +36,12 @@ const App = () => {
   const addTask = async (task) => {
     const res = await fetch('http://localhost:5000/tasks', {
       method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
+      headers: { 'Content-type': 'application/json' },
       body: JSON.stringify(task),
     })
 
     const data = await res.json()
-
     setTasks([...tasks, data])
-
-    // const id = Math.floor(Math.random() * 10000) + 1
-    // const newTask = { id, ...task }
-    // setTasks([...tasks, newTask])
   }
 
   // Delete Task
@@ -59,7 +49,7 @@ const App = () => {
     const res = await fetch(`http://localhost:5000/tasks/${id}`, {
       method: 'DELETE',
     })
-    //We should control the response status to decide if we will change the state or not.
+
     res.status === 200
       ? setTasks(tasks.filter((task) => task.id !== id))
       : alert('Error Deleting This Task')
@@ -72,9 +62,7 @@ const App = () => {
 
     const res = await fetch(`http://localhost:5000/tasks/${id}`, {
       method: 'PUT',
-      headers: {
-        'Content-type': 'application/json',
-      },
+      headers: { 'Content-type': 'application/json' },
       body: JSON.stringify(updTask),
     })
 
@@ -86,17 +74,18 @@ const App = () => {
       )
     )
   }
-
+const title='Tracker App'
   return (
     <Router>
-      <div className='container'>
+      <div className="max-w-md mx-auto my-8 overflow-auto min-h-[00px] border border-blue-500 p-8 rounded">
         <Header
           onAdd={() => setShowAddTask(!showAddTask)}
           showAdd={showAddTask}
+          title={title}
         />
         <Routes>
           <Route
-            path='/'
+            path="/"
             element={
               <>
                 {showAddTask && <AddTask onAdd={addTask} />}
@@ -107,12 +96,12 @@ const App = () => {
                     onToggle={toggleReminder}
                   />
                 ) : (
-                  'No Tasks To Show'
+                  <p className="text-center text-gray-500">No Tasks To Show</p>
                 )}
               </>
             }
           />
-          <Route path='/about' element={<About />} />
+          <Route path="/about" element={<About />} />
         </Routes>
         <Footer />
       </div>

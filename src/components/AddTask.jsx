@@ -14,43 +14,48 @@ const AddTask = ({ onAdd }) => {
     }
 
     onAdd({ text, day, reminder })
-
     setText('')
     setDay('')
     setReminder(false)
   }
 
   return (
-    <form className='add-form' onSubmit={onSubmit}>
-      <div className='form-control'>
-        <label>Task</label>
+    <form className="mb-10" onSubmit={onSubmit}>
+      <div className="my-5">
+        <label className="block text-sm font-medium">Task</label>
         <input
-          type='text'
-          placeholder='Add Task'
+          type="text"
+          placeholder="Add Task"
           value={text}
           onChange={(e) => setText(e.target.value)}
+          className="w-full h-10 mt-1 px-2 text-base border border-gray-300 rounded"
         />
       </div>
-      <div className='form-control'>
-        <label>Day & Time</label>
+      <div className="my-5">
+        <label className="block text-sm font-medium">Day & Time</label>
         <input
-          type='text'
-          placeholder='Add Day & Time'
+          type="text"
+          placeholder="Add Day & Time"
           value={day}
           onChange={(e) => setDay(e.target.value)}
+          className="w-full h-10 mt-1 px-2 text-base border border-gray-300 rounded"
         />
       </div>
-      <div className='form-control form-control-check'>
-        <label>Set Reminder</label>
+      <div className="flex items-center justify-between my-5">
+        <label className="flex-1 text-sm font-medium">Set Reminder</label>
         <input
-          type='checkbox'
+          type="checkbox"
           checked={reminder}
           value={reminder}
           onChange={(e) => setReminder(e.currentTarget.checked)}
+          className="flex-2 h-5 w-5"
         />
       </div>
-
-      <input type='submit' value='Save Task' className='btn btn-block' />
+      <input
+        type="submit"
+        value="Save Task"
+        className="block w-full bg-black text-white py-2 px-4 rounded cursor-pointer text-[15px] active:scale-95 transition-transform duration-100"
+      />
     </form>
   )
 }
